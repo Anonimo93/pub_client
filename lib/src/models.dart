@@ -207,10 +207,33 @@ class ComplexDependency {
 @JsonSerializable()
 class Hosted {
   String name;
-  String url;
+  final String url;
 
   Hosted({this.name, this.url});
 
-  factory Hosted.fromJson(Map<String, dynamic> json) => _$HostedFromJson(json);
-  Map<String, dynamic> toJson() => _$HostedToJson(this);
+  factory Hosted.fromJson(Map<String, dynamic> json) {
+    if (json['hosted'] is String) {
+      return new Hosted(url: json['hosted']);
+    } else {
+      return new Hosted(
+        name: json['hosted']['name'],
+        url: json['hosted']['url'],
+      );
+    }
+  }
+
+  Map<String, dynamic> toJson () {
+    if (this.name != null) {
+      return {
+        'hosted': {
+          'name': this.name,
+          'url': this.url,
+        }
+      };
+    }
+
+    return {
+      'hosted': this.url
+    };
+  }
 }

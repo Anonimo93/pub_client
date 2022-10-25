@@ -188,16 +188,9 @@ ComplexDependency _$ComplexDependencyFromJson(Map<String, dynamic> json) {
   return ComplexDependency(
       hosted: json['hosted'] == null
           ? null
-          : Hosted.fromJson(json['hosted'] as Map<String, dynamic>),
+          : Hosted.fromJson(json),
       version: json['version'] as String);
 }
 
 Map<String, dynamic> _$ComplexDependencyToJson(ComplexDependency instance) =>
     <String, dynamic>{'hosted': instance.hosted, 'version': instance.version};
-
-Hosted _$HostedFromJson(Map<String, dynamic> json) {
-  return Hosted(name: json['name'] as String, url: json['url'] as String);
-}
-
-Map<String, dynamic> _$HostedToJson(Hosted instance) =>
-    <String, dynamic>{'name': instance.name, 'url': instance.url};
